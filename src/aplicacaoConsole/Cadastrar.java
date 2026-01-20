@@ -12,7 +12,7 @@ public class Cadastrar {
 			Fachada.criarEmpregado("carlos", "carlos@gmail.com", "vendas");
 			Fachada.criarEmpregado("joao", "joao@gmail.com", "marketing");
 			Fachada.criarEmpregado("paulo", "paulo@gmail.com", "youtuber");
-			Fachada.criarEmpregado("marcos", "marcos@gmail.com", "inovação");
+			Fachada.criarEmpregado("marcos", "marcos@gmail.com", "inovaï¿½ï¿½o");
 		} catch (Exception e) {
 			System.out.println("--->"+e.getMessage());
 		}	

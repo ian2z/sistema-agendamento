@@ -12,9 +12,9 @@ import requisitos.Fachada;
 public class TesteExcecao {
 
 	public TesteExcecao() {
-		System.out.println("\n-------TESTE EXCEÇÕES LANÇADAS--------");
+		System.out.println("\n-------TESTE EXCEï¿½ï¿½ES LANï¿½ADAS--------");
 		
-		//apagar arquivos de dados para forçar exceções
+		//apagar arquivos de dados para forï¿½ar exceï¿½ï¿½es
 		File f1;
 		File f2;
 		try {

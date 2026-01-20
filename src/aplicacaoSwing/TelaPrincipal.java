@@ -2,7 +2,7 @@ package aplicacaoSwing;
 /**********************************
  * IFPB - Curso Superior de Tec. em Sist. para Internet
  * Pesist~encia de Objetos
- * Prof. Fausto Maranhão Ayres
+ * Prof. Fausto Maranhï¿½o Ayres
  **********************************/
 
 import java.awt.EventQueue;
@@ -69,7 +69,7 @@ public class TelaPrincipal {
 			}
 			@Override
 			public void windowClosing(WindowEvent e) {
-				JOptionPane.showMessageDialog(frame, "até breve !");
+				JOptionPane.showMessageDialog(frame, "atï¿½ breve !");
 			}
 		});
 		frame.setTitle("Agenda de reuni\u00E3o");
