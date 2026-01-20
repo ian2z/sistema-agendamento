@@ -90,7 +90,7 @@ public class Repositorio {
 					p=e;
 				} else if (tipo.equals("CONVIDADO")) {
 					c = new Convidado(nome, email, complemento);
-					convidados.add(c);
+					convidado.add(c);
 					participantes.add(c);
 					p=c;
 				} else
