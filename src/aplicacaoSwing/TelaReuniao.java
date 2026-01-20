@@ -1,7 +1,7 @@
 /**********************************
  * IFPB - Curso Superior de Tec. em Sist. para Internet
  * Pesist~encia de Objetos
- * Prof. Fausto Maranhão Ayres
+ * Prof. Fausto Maranhï¿½o Ayres
  **********************************/
 package aplicacaoSwing;
 
@@ -124,7 +124,7 @@ public class TelaReuniao {
 					String assunto = textField_2.getText();
 					String nomes[] = textField_3.getText().trim().split(",");
 					Fachada.criarReuniao(data, assunto, new ArrayList<>(Arrays.asList(nomes)));
-					label.setText("reunião criada");
+					label.setText("reuniï¿½o criada");
 					listagem();
 				} catch (Exception ex) {
 					label.setText(ex.getMessage());
@@ -164,11 +164,11 @@ public class TelaReuniao {
 						int id = (int) table.getValueAt(table.getSelectedRow(), 0);
 
 						Object[] options = { "Confirmar", "Cancelar" };
-						int escolha = JOptionPane.showOptionDialog(null, "Confirma exclusão da reunião " + id, "Alerta",
+						int escolha = JOptionPane.showOptionDialog(null, "Confirma exclusï¿½o da reuniï¿½o " + id, "Alerta",
 								JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
 						if (escolha == 0) {
 							Fachada.cancelarReuniao(id);
-							label.setText("reunião cancelada " + id);
+							label.setText("reuniï¿½o cancelada " + id);
 							listagem();
 						}
 					} else

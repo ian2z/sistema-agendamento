@@ -1,7 +1,7 @@
 /**********************************
  * IFPB - Curso Superior de Tec. em Sist. para Internet
- * Programação Orientada a Objetos
- * Prof. Fausto Maranhão Ayres
+ * Programaï¿½ï¿½o Orientada a Objetos
+ * Prof. Fausto Maranhï¿½o Ayres
  **********************************/
 
 package repositorio;
@@ -94,7 +94,7 @@ public class Repositorio {
 					participantes.add(c);
 					p=c;
 				} else
-					throw new RuntimeException("participantes.csv - tipo inválido: " + tipo);
+					throw new RuntimeException("participantes.csv - tipo invï¿½lido: " + tipo);
 
 				// processar lista de ids de reunioes do participante lido
 				if (partes.length > 4) {
@@ -117,7 +117,7 @@ public class Repositorio {
 
 	public void gravarObjetos() {
 		// gravar nos arquivos textos os dados dos participantes e
-		// das reuniões que estão no repositório
+		// das reuniï¿½es que estï¿½o no repositï¿½rio
 		FileWriter arquivo1 = null;
 		FileWriter arquivo2 = null;
 		try {
@@ -144,7 +144,7 @@ public class Repositorio {
 			}
 			arquivo1.close();
 		} catch (IOException e) {
-			throw new RuntimeException("problema na gravação de participantes.csv");
+			throw new RuntimeException("problema na gravaï¿½ï¿½o de participantes.csv");
 		} catch (Exception ex) {
 			throw ex;
 		}
@@ -157,7 +157,7 @@ public class Repositorio {
 			}
 			arquivo2.close();
 		} catch (IOException e) {
-			throw new RuntimeException("problema na gravação de reunioes.csv");
+			throw new RuntimeException("problema na gravaï¿½ï¿½o de reunioes.csv");
 		} catch (Exception ex) {
 			throw ex;
 		}
