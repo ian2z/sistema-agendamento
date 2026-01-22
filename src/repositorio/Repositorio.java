@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Scanner;
 
+import requisitos.Fachada;
 import modelo.Convidado;
 import modelo.Empregado;
 import modelo.Participante;
@@ -20,8 +21,7 @@ import modelo.Reuniao;
 
 public class Repositorio {
 
-    // ==================== ESTADO INTERNO ====================
-
+    // inicializando os repositorios
     private ArrayList<Participante> participantes;
     private ArrayList<Reuniao> reunioes;
     private int proximoId;
@@ -32,7 +32,7 @@ public class Repositorio {
         this.proximoId = 1;
     }
 
-    // ==================== ADICIONAR ====================
+    // metodos de adicionar participantes ou reunioes
 
     public void adicionar(Participante participante) {
         participantes.add(participante);
