@@ -16,15 +16,15 @@ public class Fachada {
 
 
 	public static ArrayList<Participante> listarParticipantes() {
-		return null;
+		return repositorio.getParticipantes();
 	}
 
 	public static ArrayList<Empregado> listarEmpregados() {
-		return null;
+		return repositorio.getEmpregados();
 	}
 
 	public static ArrayList<Convidado> listarConvidados() {
-		return null;
+		return repositorio.getConvidados();
 	}
 
 	public static ArrayList<Reuniao> listarReunioes() {
@@ -32,11 +32,31 @@ public class Fachada {
 	}
 
 	public static void criarEmpregado(String nome, String email, String setor) throws Exception {
+		if (repositorio.localizarParticipante(nome) != null) {
+			throw new RuntimeException("Nome já cadastrado")
+		}
 
+		String regexEmail = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$";
+		if (!email.matches(regexEmail)) {
+			throw new RuntimeException("Email inválido");
+		}
+
+		Empregado empregado = new Empregado(nome, email, setor);
+		repositorio.aicionar(empregado);
 	}
 
 	public static void criarConvidado(String nome, String email, String instituicao) throws Exception {
+		if (repositorio.localizarParticipante(nome) != null) {
+			throw new RuntimeException("Nome já cadastrado")
+		}
 
+		String regexEmail = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$";
+		if (!email.matches(regexEmail)) {
+			throw new RuntimeException("Email inválido");
+		}
+
+		Convidado convidado = new Convidado(nome, email, instituicao);
+		repositorio.aicionar(convidado);
 	}
 
 	public static void criarReuniao(String data, String assunto, ArrayList<String> nomes) throws Exception {
@@ -44,15 +64,28 @@ public class Fachada {
 	}
 
 	public static void adicionarParticipanteReuniao(String nome, int id) throws Exception {
-		
+		Participante participante = new localizarParticipante(nome);
+		Reuniao reuniao = new localizarReuniao(id);
+
+		reuniao.adicionar(participante);
+		participante.adicionar(reuniao);
 	}
 
 	public static void removerParticipanteReuniao(String nome, int id) throws Exception {
-		
+		Participante participante = new localizarParticipante(nome);
+		Reuniao reuniao = new localizarReuniao(id);
+
+		reuniao.remover(participante);
+		participante.remover(reuniao);
 	}
 
 	public static void cancelarReuniao(int id) throws Exception {
-		
+		Reuniao reuniao = new localizarReuniao(id);
+
+		for (Participante p : reuniao) {
+			p.remover(reuniao);
+		}
+		repositorio.remover(reuniao);
 	}
 
 	/*
