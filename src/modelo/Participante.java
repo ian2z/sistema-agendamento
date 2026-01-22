@@ -26,4 +26,8 @@ public abstract class Participante {
 	public ArrayList<Reuniao> getReunioes() {
 		return reunioes;
 	}
+
+	public void adicionar(Reuniao r) {
+		reunioes.add(r);
+	}
 }

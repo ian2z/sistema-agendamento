@@ -22,7 +22,7 @@ public class RepositorioReunioes {
         proximoId++;
     }
 
-    public Reuniao buscarPorId(int id) {
+    public static Reuniao localizarReuniao(int id) {
         for (Reuniao r : reunioes) {
             if (r.getId() == id) {
                 return r;
@@ -49,7 +49,7 @@ public class RepositorioReunioes {
     }
 
     public boolean removerPorId(int id) {
-        Reuniao reuniao = buscarPorId(id);
+        Reuniao reuniao = localizarReuniao(id);
         if (reuniao != null) {
             return reunioes.remove(reuniao);
         }

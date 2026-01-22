@@ -39,5 +39,10 @@ public class Reuniao {
 	public ArrayList<Participante> getParticipantes() {
 		return participantes;
 	}
+
+	public void adicionar(Participante p) {
+		participantes.add(p);
+		
+	}
 	
 }

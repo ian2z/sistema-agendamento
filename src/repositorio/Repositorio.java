@@ -19,6 +19,8 @@ import modelo.Empregado;
 import modelo.Participante;
 import modelo.Reuniao;
 import requisitos.Fachada;
+import repositorio.RepositorioParticipantes;
+import repositorio.RepositorioReunioes;
 
 public class Repositorio {
 	//...
