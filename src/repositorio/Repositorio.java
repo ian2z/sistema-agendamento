@@ -40,6 +40,7 @@ public class Repositorio {
 
     public void adicionar(Reuniao reuniao) {
         reuniao.setId(proximoId);
+        proximoId++;
         reunioes.add(reuniao);
     }
 

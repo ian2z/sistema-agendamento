@@ -16,11 +16,11 @@ public class Listar {
 		try {
 			System.out.println("\n---------listagem de participantes-----");
 			for(Participante p : Fachada.listarParticipantes()) 
-				System.out.println(p);
+				System.out.println(p.getNome());
 			
 			System.out.println("\n---------listagem de reunioes");
 			for(Reuniao r : Fachada.listarReunioes()) 
-				System.out.println(r);
+				System.out.println(r.getAssunto());
 		}
 		catch(Exception e){
 			System.out.println("-->" + e.getMessage());
