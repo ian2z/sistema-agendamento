@@ -23,7 +23,6 @@ public class Fachada {
         }
     }
 
-
     public static ArrayList<Participante> listarParticipantes() {
         return repositorio.getParticipantes();
     }
@@ -75,7 +74,7 @@ public class Fachada {
     //CRIAR REUNIAO
     public static void criarReuniao(String data, String assunto, ArrayList<String> nomes) throws Exception {
         // verifica se a data é unica
-        if (repositorio.localizarReuniao(data) != null) {
+        if (repositorio.localizarReuniaoData(data) != null) {
             throw new RuntimeException("Já existe reunião cadastrada nessa data");
         }
 
@@ -137,11 +136,6 @@ public class Fachada {
         Participante participante = repositorio.localizarParticipante(nome);
         Reuniao reuniao = repositorio.localizarReuniao(id);
 
-        //mínimo de 2 participantes
-        if (reuniao.getParticipantes().size() < 2) {
-            cancelarReuniao(id);
-        }
-
         if (participante == null) {
             throw new RuntimeException("Participante nao encontrado: " + nome);
         }
@@ -157,7 +151,13 @@ public class Fachada {
 
         reuniao.remover(participante);
         participante.remover(reuniao);
-        repositorio.gravarObjetos();
+
+        //mínimo de 2 participantes
+        if (reuniao.getParticipantes().size() < 2) {
+            cancelarReuniao(id);
+        } else {
+            repositorio.gravarObjetos();
+        }
     }
 
     public static void cancelarReuniao(int id) {

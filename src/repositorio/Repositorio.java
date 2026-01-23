@@ -41,7 +41,6 @@ public class Repositorio {
     public void adicionar(Reuniao reuniao) {
         reuniao.setId(proximoId);
         reunioes.add(reuniao);
-        proximoId++;
     }
 
     // metodos para localização
@@ -64,7 +63,7 @@ public class Repositorio {
         return null;
     }
 
-    public Reuniao localizarReuniao(String data) {
+    public Reuniao localizarReuniaoData(String data) {
         for (Reuniao r : reunioes) {
             if (r.getData().equals(data)) {
                 return r;
@@ -230,4 +229,3 @@ public class Repositorio {
         return proximoId;
     }
 }
-// classe
