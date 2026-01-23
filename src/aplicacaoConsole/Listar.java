@@ -21,6 +21,14 @@ public class Listar {
 			System.out.println("\n---------listagem de reunioes");
 			for(Reuniao r : Fachada.listarReunioes()) 
 				System.out.println(r.getAssunto());
+
+            System.out.println("\n---------listagem de empregados-----");
+            for(Participante p : Fachada.listarEmpregados())
+                System.out.println(p.getNome());
+
+            System.out.println("\n---------listagem de convidados-----");
+            for(Participante p : Fachada.listarConvidados())
+                System.out.println(p.getNome());
 		}
 		catch(Exception e){
 			System.out.println("-->" + e.getMessage());
