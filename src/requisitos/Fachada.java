@@ -19,7 +19,7 @@ public class Fachada {
         try {
             repositorio.lerObjetos();
         } catch (Exception e) {
-            // se falhar, continuamos com repositório vazio
+            // se falhar vai continuamos com repositório vazio
         }
     }
 
@@ -40,6 +40,7 @@ public class Fachada {
         return repositorio.getReunioes();
     }
 
+    //CRIAR O EMPREGADO
     public static void criarEmpregado(String nome, String email, String setor) throws Exception {
         if (repositorio.localizarParticipante(nome) != null) {
             throw new RuntimeException("Nome já cadastrado");
@@ -55,6 +56,7 @@ public class Fachada {
         repositorio.gravarObjetos();
     }
 
+    //CRIAR O CONVIDADO
     public static void criarConvidado(String nome, String email, String instituicao) throws Exception {
         if (repositorio.localizarParticipante(nome) != null) {
             throw new RuntimeException("Nome já cadastrado");
@@ -70,7 +72,35 @@ public class Fachada {
         repositorio.gravarObjetos();
     }
 
+    //CRIAR REUNIAO
     public static void criarReuniao(String data, String assunto, ArrayList<String> nomes) throws Exception {
+        // verifica se a data é unica
+        if (repositorio.localizarReuniao(data) != null) {
+            throw new RuntimeException("Já existe reunião cadastrada nessa data");
+        }
+
+        // verifica se tem mais de 2 participantes
+        if (nomes == null || nomes.size() < 2) {
+            throw new RuntimeException("Uma reunião deve ter pelo menos 2 participantes");
+        }
+
+        // verifica duplicidade e existência de participantes
+        ArrayList<Participante> participantesReuniao = new ArrayList<>();
+
+        for (String nome : nomes) {
+            Participante p = repositorio.localizarParticipante(nome);
+
+            if (p == null) {
+                throw new RuntimeException("Participante não encontrado: " + nome);
+            }
+
+            if (participantesReuniao.contains(p)) {
+                throw new RuntimeException("Participante duplicado na reunião: " + nome);
+            }
+
+            participantesReuniao.add(p);
+        }
+
         Reuniao r = new Reuniao(data, assunto);
         // adiciona na lista e define id
         repositorio.adicionar(r);
@@ -107,11 +137,22 @@ public class Fachada {
         Participante participante = repositorio.localizarParticipante(nome);
         Reuniao reuniao = repositorio.localizarReuniao(id);
 
+        //mínimo de 2 participantes
+        if (reuniao.getParticipantes().size() < 2) {
+            cancelarReuniao(id);
+        }
+
         if (participante == null) {
             throw new RuntimeException("Participante nao encontrado: " + nome);
         }
+
         if (reuniao == null) {
             throw new RuntimeException("Reuniao nao encontrada: " + id);
+        }
+
+        //verifica o relacionamento
+        if (!reuniao.getParticipantes().contains(participante)) {
+            throw new RuntimeException("Participante não participa dessa reunião");
         }
 
         reuniao.remover(participante);
@@ -119,43 +160,56 @@ public class Fachada {
         repositorio.gravarObjetos();
     }
 
-    public static void cancelarReuniao(int id) throws Exception {
-        Reuniao reuniao = repositorio.localizarReuniao(id);
-        if (reuniao == null) {
-            throw new RuntimeException("Reuniao nao encontrada: " + id);
+    public static void cancelarReuniao(int id) {
+
+        Reuniao r = repositorio.localizarReuniao(id);
+        if (r == null) {
+            throw new RuntimeException("Reunião não encontrada: " + id);
         }
 
-        // remover referencia em cada participante
-        ArrayList<Participante> copia = new ArrayList<>(reuniao.getParticipantes());
+        ArrayList<Participante> copia = new ArrayList<>(r.getParticipantes());
         for (Participante p : copia) {
-            p.remover(reuniao);
+            p.remover(r);
+            r.remover(p);
         }
-        repositorio.remover(reuniao);
+        repositorio.remover(r);
         repositorio.gravarObjetos();
     }
 
-    /*
+ /*
      *
      * Consultas
      *
      */
+
     public static ArrayList<Participante> consulta1(int n) {
+
         ArrayList<Participante> resultado = new ArrayList<>();
+
         for (Participante p : repositorio.getParticipantes()) {
-            if (p.getReunioes().size() >= n) resultado.add(p);
+            if (p.getReunioes().size() >= n) {
+                resultado.add(p);
+            }
         }
         return resultado;
     }
-    public static int consulta2(String mes, String ano) {
-        int total = 0;
+
+
+    public static int consulta2(int mes, int ano) {
+
+        int contador = 0;
+
         for (Reuniao r : repositorio.getReunioes()) {
             String[] partes = r.getData().split("/");
-            if (partes.length >= 3) {
-                String m = partes[1];
-                String a = partes[2];
-                if (m.equals(mes) && a.equals(ano)) total++;
+
+            int mesReuniao = Integer.parseInt(partes[1]);
+            int anoReuniao = Integer.parseInt(partes[2]);
+
+            if (mesReuniao == mes && anoReuniao == ano) {
+                contador++;
             }
         }
-        return total;
+
+        return contador;
     }
 }
